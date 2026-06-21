@@ -1,9 +1,8 @@
-# Flatsome Skill
+# Flatsome AI Coding Skill
 
 A reusable **AI coding skill** packaging complete knowledge of the **Flatsome** WordPress
 theme (by UX Themes) + **UX Builder**, for AI-assisted ("vibe coding") development across
-projects. Built from the official docs at https://docs.uxthemes.com/ and verified against the
-theme's real rendered HTML output.
+projects. Distilled from UX Themes' official Flatsome documentation.
 
 It's plain Markdown, so it works with **any** AI coding tool — **Claude Code, Cursor, Codex,
 opencode, Cline, Windsurf, GitHub Copilot, OpenClaw**, or any agent/chat assistant you can give
@@ -37,7 +36,7 @@ When a project uses Flatsome / UX Builder, this skill makes your AI assistant:
 Clone the repo:
 
 ```bash
-git clone https://github.com/nqchange96/flatsome-skill.git
+git clone https://github.com/nqchange96/flatsome-ai-coding-skill.git
 ```
 
 The skill is plain Markdown (`flatsome/SKILL.md` + `flatsome/references/*.md`), so any AI coding
@@ -120,9 +119,8 @@ Block, or a header element — then reopen in UX Builder to tweak visually.
 This skill is intentionally **generic** — it contains no data from any specific website. Sample
 sites are used only to verify that shortcodes render to correct standard HTML.
 
-## Maintenance
+## Author
 
-Built 2026-06-21 against Flatsome 3.20.0. On a major Flatsome release, re-crawl
-`/article/385-hooks` and the shortcodes/snippets categories to refresh.
+Made by **chuyenmkt** — [chuyenmkt.com](https://chuyenmkt.com)
 
-Official docs: https://docs.uxthemes.com/
+Official Flatsome docs: https://docs.uxthemes.com/

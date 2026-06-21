@@ -159,9 +159,9 @@ A request like *"a hero with heading, subtext and a button, plus a 3-column feat
 [/section]
 ```
 
-## Accuracy & provenance (source: docs.uxthemes.com, Flatsome 3.20.0)
+## Accuracy & provenance (source: docs.uxthemes.com)
 
-This skill was compiled by crawling the official documentation on 2026-06-21. Trust levels:
+This skill is based on UX Themes' official Flatsome documentation. Trust levels:
 
 - **Verbatim from docs (100% reliable):** the hook lists in [references/hooks.md](references/hooks.md);
   the 7 custom product layouts in [references/woocommerce.md](references/woocommerce.md);
@@ -174,9 +174,6 @@ This skill was compiled by crawling the official documentation on 2026-06-21. Tr
 - **Ground truth for any exact attribute set:** build the element once in UX Builder, save, open
   the page in the WordPress code editor, and copy the generated shortcode. Use this whenever an
   attribute value matters and isn't confirmed here.
-
-If Flatsome ships a new major version, re-crawl `/article/385-hooks` and the shortcodes/snippets
-categories to refresh.
 
 ## Documentation map (source: docs.uxthemes.com)
 
