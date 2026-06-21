@@ -1,0 +1,13 @@
+# Landing page / preview artifact (not part of the skill)
+landing-page.html
+
+# Packaged archives
+*.zip
+
+# Local tooling & settings
+.claude/
+
+# OS junk
+desktop.ini
+Thumbs.db
+.DS_Store
