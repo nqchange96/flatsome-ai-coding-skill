@@ -15,6 +15,105 @@ Flatsome uses a **12-column responsive grid**. The structural hierarchy is:
 For grids inside a column, use the `_inner` variants so they don't conflict:
 `[row_inner]` / `[col_inner]`.
 
+---
+
+## Structure discipline (clean, maintainable layouts)
+
+These three rules keep generated layouts clean, predictable, and easy to style. Follow them
+on **every** layout — they prevent the messy, over-nested output Flatsome projects often
+accumulate.
+
+### 1. One content block = one `[section]`
+
+Each distinct part of the page (hero, intro, features, testimonials, CTA, FAQ, …) gets **its
+own `[section]`**. Do **not** pack several unrelated content blocks into a single section.
+
+Why: a section is the natural "band" of the page — separate sections can each have their own
+background/padding/spacing, be reordered or toggled independently, be styled in isolation, and
+be lifted out into a reusable UX Block. Cramming multiple parts into one section makes all of
+that harder and forces fragile spacing hacks (`[gap]` everywhere) to fake separation.
+
+```
+✅ Correct — one section per content block
+[section label="Hero" class="home-hero"] [row]...[/row] [/section]
+[section label="Features" class="home-features"] [row]...[/row] [/section]
+[section label="CTA" class="home-cta"] [row]...[/row] [/section]
+
+❌ Wrong — three unrelated blocks crammed into one section
+[section]
+  [row]...hero...[/row]
+  [gap height="60px"]
+  [row]...features...[/row]
+  [gap height="60px"]
+  [row]...CTA...[/row]
+[/section]
+```
+
+### 2. Keep `section → row → col` flat — avoid needless nesting
+
+Flatsome layouts tend to grow unnecessary nested rows/cols inside other cols (`col → row_inner
+→ col_inner → row_inner …`), which bloats the markup and makes both the builder and CSS hard
+to reason about. Stick to the canonical depth:
+
+```
+[section] → [row] → [col] → content
+```
+
+Only go one level deeper — **`[row_inner]` / `[col_inner]` inside a `[col]`** — when you
+genuinely need a grid *within* a column (e.g. a 2×2 mini-grid inside one half of the page).
+Never nest beyond that, and never wrap a single element in an extra row/col "just in case."
+
+```
+✅ Correct — flat, one inner grid only where a sub-grid is truly needed
+[row]
+  [col span="6" span__sm="12"][ux_image id="1"][/col]
+  [col span="6" span__sm="12"]
+    [row_inner]
+      [col_inner span="6"]...[/col_inner]
+      [col_inner span="6"]...[/col_inner]
+    [/row_inner]
+  [/col]
+[/row]
+
+❌ Wrong — pointless extra nesting around content that needs no sub-grid
+[row]
+  [col span="12"]
+    [row_inner][col_inner span="12"]
+      [row_inner][col_inner span="12"][ux_text]...[/ux_text][/col_inner][/row_inner]
+    [/col_inner][/row_inner]
+  [/col]
+[/row]
+```
+
+### 3. Give each `[section]`/`[row]`/`[col]` its own CSS class
+
+Add a **unique, descriptive `class`** to every section, row, and the columns you intend to
+style. This gives "vibe coding" a stable hook to target with Custom CSS instead of relying on
+fragile structural selectors (`.section:nth-child(3) .col`) that break when the layout changes.
+
+```
+[section label="Features" class="home-features"]
+  [row class="home-features__row"]
+    [col span="4" span__sm="12" class="home-features__col"]...[/col]
+    [col span="4" span__sm="12" class="home-features__col"]...[/col]
+    [col span="4" span__sm="12" class="home-features__col"]...[/col]
+  [/row]
+[/section]
+```
+
+Then Custom CSS targets the class directly (the class is appended to Flatsome's standard
+output classes — see the shortcode→HTML table below):
+
+```css
+.home-features { background: #fafafa; }
+.home-features__col { border-radius: 12px; }
+```
+
+Use a consistent naming scheme (e.g. `block__element`) and keep classes unique per content
+block so styles don't leak across sections.
+
+---
+
 ## Responsive breakpoints
 
 Most attributes support breakpoint suffixes:

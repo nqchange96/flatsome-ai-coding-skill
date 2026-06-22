@@ -46,8 +46,10 @@ UX Builder shortcodes**, not raw HTML. This is non-negotiable for Flatsome compa
 
 **Self-check before returning layout code:** Does the output start with a Flatsome shortcode
 (`[section]`/`[row]`/`[ux_banner]`/...)? Are there any structural `<div>`s outside `[ux_html]`?
-Does every `[col]` in a multi-column row have `span__sm`? If any answer is wrong, fix it before
-responding.
+Does every `[col]` in a multi-column row have `span__sm`? Is each distinct content block its
+own `[section]` (not several crammed into one)? Is the structure flat (`section → row → col`,
+no pointless nested rows/cols)? Does each `[section]`/`[row]`/`[col]` have a unique `class` for
+CSS? If any answer is wrong, fix it before responding.
 
 ## Mental model (read this first)
 
@@ -112,6 +114,15 @@ Full parameter tables for every element are in
 
 ## Critical conventions & gotchas
 
+- **One content block = one `[section]`.** Every distinct part of the page (hero, features,
+  testimonials, CTA, …) gets its own `[section]` — never pack several unrelated blocks into one.
+  This keeps each band independently styleable, reorderable, and reusable as a UX Block.
+- **Keep `section → row → col` flat.** Don't create needless nested rows/cols. Only use
+  `[row_inner]`/`[col_inner]` (one level deep) when a column genuinely needs a sub-grid; never
+  wrap a single element in an extra row/col.
+- **Give each `[section]`/`[row]`/`[col]` a unique `class`.** Add descriptive classes (e.g.
+  `class="home-features"`, `class="home-features__col"`) so Custom CSS targets stable hooks
+  instead of fragile structural selectors. See [references/grid-system.md](references/grid-system.md#structure-discipline-clean-maintainable-layouts).
 - **Grid math:** `[col]` spans must sum to 12 per row (or they wrap). Default span is 12.
 - **Mobile first fallback:** ALWAYS set `span__sm="12"` on multi-column rows or the layout
   breaks on phones. Likewise use `text_align`, `padding`, `visibility` responsive variants.
@@ -142,7 +153,7 @@ A request like *"a hero with heading, subtext and a button, plus a 3-column feat
 
 ✅ **Correct (UX Builder shortcodes):**
 ```
-[ux_banner height="500px" height__sm="300px" bg="123" bg_overlay="rgba(0,0,0,0.4)" text_color="light"]
+[ux_banner height="500px" height__sm="300px" bg="123" bg_overlay="rgba(0,0,0,0.4)" text_color="light" class="home-hero"]
   [text_box width="60%" position_x="50" position_y="50" text_align="center"]
     [title style="center" text="Welcome" tag_name="h1" color="rgb(255,255,255)"]
     [ux_text]Your subtext here[/ux_text]
@@ -150,11 +161,11 @@ A request like *"a hero with heading, subtext and a button, plus a 3-column feat
   [/text_box]
 [/ux_banner]
 
-[section padding="60px 0px 60px 0px"]
-  [row]
-    [col span="4" span__sm="12" text_align="center"][featured_box icon="icon-truck" title="Free shipping"]Over $50[/featured_box][/col]
-    [col span="4" span__sm="12" text_align="center"][featured_box icon="icon-gift" title="Gift wrap"]On request[/featured_box][/col]
-    [col span="4" span__sm="12" text_align="center"][featured_box icon="icon-shield" title="Secure"]SSL checkout[/featured_box][/col]
+[section label="Features" class="home-features" padding="60px 0px 60px 0px"]
+  [row class="home-features__row"]
+    [col span="4" span__sm="12" text_align="center" class="home-features__col"][featured_box icon="icon-truck" title="Free shipping"]Over $50[/featured_box][/col]
+    [col span="4" span__sm="12" text_align="center" class="home-features__col"][featured_box icon="icon-gift" title="Gift wrap"]On request[/featured_box][/col]
+    [col span="4" span__sm="12" text_align="center" class="home-features__col"][featured_box icon="icon-shield" title="Secure"]SSL checkout[/featured_box][/col]
   [/row]
 [/section]
 ```
