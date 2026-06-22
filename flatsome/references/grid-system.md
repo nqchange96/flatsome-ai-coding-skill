@@ -257,6 +257,47 @@ output classes helps you write Custom CSS targeting the right element.
 grid is column-class based (`.col.medium-6.small-12`), so target columns in CSS via those
 classes — not by element position.
 
+## Default spacing / box model — design WITH it, don't fight it
+
+Flatsome ships built-in spacing on the grid primitives. **Account for these in your layout
+(use the elements' own spacing attributes); do NOT override Flatsome's core `.col`/`.section`
+CSS** — that breaks the grid site-wide and fights the cascade. Know the defaults so your output
+lands at the right spacing the first time.
+
+```css
+/* Flatsome core defaults (do not override globally) */
+.col, .columns { margin: 0; padding: 0 15px 30px; width: 100%; }  /* 15px L/R gutter + 30px BOTTOM */
+.row           { margin: 0 -15px; }                                /* negative margin cancels the 15px */
+.section       { padding: 30px 0; display: flex; align-items: center; }  /* 30px top/bottom band */
+```
+
+What this means when you generate layouts:
+
+- **Horizontal gutter is already handled.** Each `[col]` has `15px` left/right padding, and the
+  `[row]` has `-15px` margins that cancel it at the edges — so column **content aligns flush to
+  the content-width edge**, with a `~30px` gap *between* adjacent columns. Don't add your own
+  side padding expecting flush content, and don't try to recreate the gutter.
+- **`[col]` has `30px` padding-BOTTOM by default** — this is the **vertical gutter** between
+  columns that wrap/stack (e.g. a 3-up card row dropping to 1-up on mobile). For card grids,
+  **rely on it** instead of adding `margin-bottom`. When you specifically need a column flush to
+  the band bottom (e.g. a stat bar docked to the hero's edge), zero it **on that column** via its
+  own attribute — `[col padding="0px 15px 0px 15px"]` — not a global `.col` override.
+- **`[section]` has `30px` top/bottom by default.** To set a different band height, use the
+  section's **own** padding attribute: `[section padding="96px 0px 96px 0px"]`. This *replaces*
+  the default 30px (it doesn't stack on top of it). Keep left/right at `0` — the row handles
+  horizontal width.
+- **Spacing math / "trừ hao":** the visible space below the last row of a section ≈ the section's
+  bottom padding **plus** the `30px` col padding-bottom. So if a design calls for `96px` of clear
+  space under a card row, setting `[section padding="…66px…"]` lands at ~96px once the col's `30px`
+  is added — or set the section to `96px` and accept the extra `30px` as the inter-card gutter.
+  Decide per design which value to dial; **adjust via the shortcode attributes, not CSS resets.**
+- **Per-element spacing belongs on the element.** Use `[section padding=…]`, `[col padding=…
+  margin=…]`, `[row style="collapse|small|large"]` (gutter size) and `[gap height=…]` to tune
+  spacing. This keeps everything editable in UX Builder and avoids overriding theme core.
+
+> Last resort only: if a pixel-exact match truly needs it, scope an override to your **own**
+> namespaced class (`.myblock .col-inner { … }`) — never restyle bare `.col`/`.section`.
+
 ## Common layout recipes
 
 **3-column feature row (responsive):**

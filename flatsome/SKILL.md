@@ -123,6 +123,13 @@ Full parameter tables for every element are in
 - **Give each `[section]`/`[row]`/`[col]` a unique `class`.** Add descriptive classes (e.g.
   `class="home-features"`, `class="home-features__col"`) so Custom CSS targets stable hooks
   instead of fragile structural selectors. See [references/grid-system.md](references/grid-system.md#structure-discipline-clean-maintainable-layouts).
+- **Account for Flatsome's default spacing — don't fight it.** Every `[col]` ships with
+  `padding: 0 15px 30px` (15px L/R gutter + **30px bottom**) and every `[section]` with
+  `padding: 30px 0`. Design *with* these (they're your built-in gutters): set band/column spacing
+  via the elements' **own** attributes (`[section padding=…]`, `[col padding=… margin=…]`,
+  `[row style="collapse"]`, `[gap]`) and let the `30px` col-bottom act as the vertical gutter
+  between wrapped columns. **Never restyle bare `.col`/`.section`** to "fix" spacing — it breaks
+  the grid site-wide. See [references/grid-system.md](references/grid-system.md#default-spacing--box-model--design-with-it-dont-fight-it).
 - **Grid math:** `[col]` spans must sum to 12 per row (or they wrap). Default span is 12.
 - **Mobile first fallback:** ALWAYS set `span__sm="12"` on multi-column rows or the layout
   breaks on phones. Likewise use `text_align`, `padding`, `visibility` responsive variants.
