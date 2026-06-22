@@ -25,6 +25,7 @@ When a project uses Flatsome / UX Builder, this skill makes your AI assistant:
 | `SKILL.md` | Entry point: mental model, **OUTPUT CONTRACT** (shortcodes not HTML), quick reference, conventions, accuracy/provenance |
 | `references/grid-system.md` | `section/row/col` grid, breakpoints, shortcode→HTML mapping, layout recipes |
 | `references/html-to-uxbuilder.md` | Playbook: analyze an HTML/mockup design → map to shortcodes → emit → verify; render gotchas |
+| `references/studio-templates.md` | Catalog of ready-made Flatsome Studio layouts (by category, with preview links) to use as starting points |
 | `references/shortcodes.md` | Full element reference w/ parameters (text, image, banner, button, slider, lightbox, blog_posts, …) |
 | `references/hooks.md` | All 67 action hooks + 67 filters (verbatim) with recipes |
 | `references/woocommerce.md` | Product grids, single-product elements, 7 custom product-page layouts |

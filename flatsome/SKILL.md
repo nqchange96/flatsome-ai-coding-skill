@@ -76,6 +76,9 @@ CSS? If any answer is wrong, fix it before responding.
 - **Converting an HTML/Figma/mockup design to UX Builder:** follow the analyze → map → emit →
   verify playbook in [references/html-to-uxbuilder.md](references/html-to-uxbuilder.md) (includes
   the HTML→shortcode mapping table and the render gotchas that make CSS actually match).
+- **Need a layout starting point (avoid blank page / repetition):** browse
+  [references/studio-templates.md](references/studio-templates.md) — pointers to ready-made native
+  Flatsome Studio layouts by category; import one as a skeleton, then adapt and vary it.
 - **Custom product page (WooCommerce):** Build a UX Block ("CPL - ...") and assign it in
   Theme Options → Shop → Product Page, or per-category/per-product. Use the `ux_product_*`
   shortcodes. See [references/woocommerce.md](references/woocommerce.md).
@@ -132,6 +135,11 @@ Full parameter tables for every element are in
   builder can't do: gradients, animated/gradient overlays, hover effects, `object-fit` cropping,
   and inner component surfaces (cards from `.col-inner`, badges, pills) — scoped to your own class.
   See [references/customization.md](references/customization.md#prefer-builder-controls-over-custom-css-use-css-only-for-what-the-builder-cant-do).
+- **Vary the layout — don't emit the same skeleton every time.** Before building, deliberately
+  vary hero style, section order, and column rhythm between pages (image-left vs image-right,
+  full-bleed vs contained, 2-up vs 3-up, alternating backgrounds). When unsure what's available,
+  borrow a different starting point from [references/studio-templates.md](references/studio-templates.md).
+  Lightweight nudge, not a hard gate — but near-identical pages are a smell.
 - **Account for Flatsome's default spacing — don't fight it.** Every `[col]` ships with
   `padding: 0 15px 30px` (15px L/R gutter + **30px bottom**) and every `[section]` with
   `padding: 30px 0`. Design *with* these (they're your built-in gutters): set band/column spacing
@@ -209,6 +217,7 @@ This skill is based on UX Themes' official Flatsome documentation. Trust levels:
 | Shortcode reference (all elements + params) | [references/shortcodes.md](references/shortcodes.md) |
 | Grid / layout system | [references/grid-system.md](references/grid-system.md) |
 | Converting HTML/mockup → UX Builder (playbook) | [references/html-to-uxbuilder.md](references/html-to-uxbuilder.md) |
+| Flatsome Studio layout starting points (catalog) | [references/studio-templates.md](references/studio-templates.md) |
 | UX Builder, Blocks, custom layouts, header | [references/ux-builder.md](references/ux-builder.md) |
 | Theme hooks — actions & filters | [references/hooks.md](references/hooks.md) |
 | WooCommerce + custom product pages | [references/woocommerce.md](references/woocommerce.md) |

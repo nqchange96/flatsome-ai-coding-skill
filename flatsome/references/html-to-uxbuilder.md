@@ -112,3 +112,17 @@ Shortcode that *looks* right often renders differently. After pasting:
 4. Diff against the HTML mockup block by block; fix selectors/spacing; re-verify.
 
 This analyze → map → emit → **verify** loop is what makes the converted page actually match.
+
+### Quick native self-check (3 axes)
+
+Before calling a build done, score it on three axes — pass = the page is genuinely "native"
+and maintainable, not just visually close:
+
+| Axis | Pass when… |
+|---|---|
+| **Layout native** | structure is `section→row→col`; no HTML shell holding the layout together |
+| **Content native** | text/headings/buttons/images are native elements (`[ux_text]`/`[title]`/`[button]`/`[ux_image]`); `[ux_html]` only for embeds/maps/iframes |
+| **Editability** | re-opens cleanly in UX Builder and the section/row/col tree is readable to the next editor |
+
+If any axis fails, fix it before shipping — a page that looks right but can't be edited in the
+Builder is not done. (Lightweight checklist, not a mandatory scoring artifact.)
