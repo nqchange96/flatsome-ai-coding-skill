@@ -73,6 +73,9 @@ CSS? If any answer is wrong, fix it before responding.
   (`section > row > col`), then place elements. Always add `__sm` fallbacks for mobile.
   See [references/grid-system.md](references/grid-system.md) and
   [references/shortcodes.md](references/shortcodes.md).
+- **Converting an HTML/Figma/mockup design to UX Builder:** follow the analyze → map → emit →
+  verify playbook in [references/html-to-uxbuilder.md](references/html-to-uxbuilder.md) (includes
+  the HTML→shortcode mapping table and the render gotchas that make CSS actually match).
 - **Custom product page (WooCommerce):** Build a UX Block ("CPL - ...") and assign it in
   Theme Options → Shop → Product Page, or per-category/per-product. Use the `ux_product_*`
   shortcodes. See [references/woocommerce.md](references/woocommerce.md).
@@ -205,6 +208,7 @@ This skill is based on UX Themes' official Flatsome documentation. Trust levels:
 |---|---|
 | Shortcode reference (all elements + params) | [references/shortcodes.md](references/shortcodes.md) |
 | Grid / layout system | [references/grid-system.md](references/grid-system.md) |
+| Converting HTML/mockup → UX Builder (playbook) | [references/html-to-uxbuilder.md](references/html-to-uxbuilder.md) |
 | UX Builder, Blocks, custom layouts, header | [references/ux-builder.md](references/ux-builder.md) |
 | Theme hooks — actions & filters | [references/hooks.md](references/hooks.md) |
 | WooCommerce + custom product pages | [references/woocommerce.md](references/woocommerce.md) |
