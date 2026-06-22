@@ -14,6 +14,29 @@
 > After CSS/option changes, regenerate Flatsome's CSS cache (Theme Options → Advanced) and
 > clear any caching plugin.
 
+### Prefer builder controls over custom CSS (use CSS only for what the builder can't do)
+
+When something can be set with the element's **own UX Builder control**, set it there — not in
+Custom CSS. It stays editable in the builder, survives re-saves, and doesn't fight the cascade.
+Reach for CSS only for things the builder genuinely can't express.
+
+| Style it natively in the builder | Examples |
+|---|---|
+| **Section/row/col background color** | section/row/col → **Background → Color** |
+| **Background image** | **Background → Image** (section/banner/col) |
+| **Light text on dark backgrounds** | section's **Dark** toggle (don't hand-set `color:#fff`) |
+| **Padding / margin / spacing** | element's **Padding/Margin** fields, `[gap]`, row gutter `style` |
+| **Solid color overlay on a bg image** | section **Overlay color** |
+| **Text align, column width, vertical align** | element controls (`text_align`, `span`, `v_align`) |
+
+**Use Custom CSS only when the builder can't:** CSS **gradients** (builder backgrounds/overlays
+are solid only), gradient/animated overlays, fine hover effects, `object-fit` image cropping,
+pseudo-elements, and styling **inner component surfaces** that aren't builder elements (e.g. a
+card built from `.col-inner`, a badge, a custom pill). Scope those to your own namespaced class.
+
+> Rule of thumb: if there's a field for it in the builder sidebar, use the field. If you'd be
+> writing CSS to re-do something the sidebar already offers, stop and use the sidebar.
+
 ---
 
 ## Theme Options (Customizer)

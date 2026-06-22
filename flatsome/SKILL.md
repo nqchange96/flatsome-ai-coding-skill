@@ -123,6 +123,12 @@ Full parameter tables for every element are in
 - **Give each `[section]`/`[row]`/`[col]` a unique `class`.** Add descriptive classes (e.g.
   `class="home-features"`, `class="home-features__col"`) so Custom CSS targets stable hooks
   instead of fragile structural selectors. See [references/grid-system.md](references/grid-system.md#structure-discipline-clean-maintainable-layouts).
+- **Prefer builder controls over Custom CSS.** If a value has its own UX Builder field — section/
+  row/col **background color & image**, the **Dark** toggle for light text, **padding/margin**,
+  solid **overlay color**, text align — set it there, not in CSS. Use Custom CSS only for what the
+  builder can't do: gradients, animated/gradient overlays, hover effects, `object-fit` cropping,
+  and inner component surfaces (cards from `.col-inner`, badges, pills) — scoped to your own class.
+  See [references/customization.md](references/customization.md#prefer-builder-controls-over-custom-css-use-css-only-for-what-the-builder-cant-do).
 - **Account for Flatsome's default spacing — don't fight it.** Every `[col]` ships with
   `padding: 0 15px 30px` (15px L/R gutter + **30px bottom**) and every `[section]` with
   `padding: 30px 0`. Design *with* these (they're your built-in gutters): set band/column spacing
