@@ -31,7 +31,10 @@ UX Builder shortcodes**, not raw HTML. This is non-negotiable for Flatsome compa
    `[ux_banner]`, `[ux_image_box]`, `[featured_box]`, `[ux_products]`, etc.
 2. **Raw HTML only inside `[ux_text]` or `[ux_html]`.** Inline tags like `<strong>`, `<a>`,
    `<br>`, lists are fine *inside* a text element. Anything structural goes in shortcodes. If a
-   widget genuinely has no Flatsome equivalent, wrap it in `[ux_html]...[/ux_html]`.
+   widget genuinely has no Flatsome equivalent, wrap it in `[ux_html]...[/ux_html]`. **But never
+   put `<script>`/`<style>`/`<link>` in `[ux_html]`** — UX Builder can strip them on save; for
+   any interactive/data-driven component register a **PHP shortcode** in the child theme instead
+   (see [references/ux-builder.md](references/ux-builder.md#pattern-dynamic--interactive-components--register-a-php-shortcode-not-ux_htmlscript)).
 3. **Always add responsive fallbacks.** Multi-column rows need `span__sm="12"` on every `[col]`;
    add `__sm`/`__md` variants for alignment, padding, height, visibility where it matters.
 4. **Where the output goes:** paste into the WordPress **code editor** of a page/post, a **UX
@@ -206,6 +209,11 @@ This skill is based on UX Themes' official Flatsome documentation. Trust levels:
   the per-element attribute tables in [references/shortcodes.md](references/shortcodes.md) and
   [references/grid-system.md](references/grid-system.md). The official docs intentionally have
   **no exhaustive shortcode parameter reference** — they teach via the visual builder and videos.
+- **Verified against live render (real conversions):** the shortcode→HTML class mapping, the
+  render gotchas, and the **UX Builder save behaviors** (`<p><br>` wrapping, direct-on-`<p>`
+  colour winning, `padding="T R B L"` corruption, full re-serialize on save) in
+  [references/html-to-uxbuilder.md](references/html-to-uxbuilder.md) — captured by diffing live
+  HTML (`curl` + Chrome headless) against the source mockup during HTML→UX Builder conversions.
 - **Ground truth for any exact attribute set:** build the element once in UX Builder, save, open
   the page in the WordPress code editor, and copy the generated shortcode. Use this whenever an
   attribute value matters and isn't confirmed here.

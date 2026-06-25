@@ -104,6 +104,43 @@ templates. Insert a Studio block, then customize. Good starting point for landin
 
 ---
 
+## Pattern: dynamic / interactive components → register a PHP shortcode (NOT `[ux_html]<script>`)
+
+For anything that needs **JavaScript interaction or data iteration** (custom sliders with
+avatar-selectors, autoplay showcases, filtered lists, anything stateful), do **not** stuff
+`<script>` / `<style>` / `<link>` into `[ux_html]` — **UX Builder can strip them on save**.
+Instead register a shortcode in the **child theme `functions.php`** (or a Code Snippets plugin)
+and place the clean token `[my_component]` in the layout.
+
+- **Why it survives:** UX Builder only ever sees the token `[my_component]` — it never touches
+  the HTML/JS the shortcode prints, so your script is 100% safe and the component is reusable.
+- **Real example:** a testimonial showcase (large image + quote + avatar selector + autoplay)
+  registered as `[dk_testimonials]`, reading attachment IDs via `wp_get_attachment_image_url()`.
+
+```php
+// child theme functions.php
+add_shortcode('my_component', function ($atts) {
+    $a = shortcode_atts(['ids' => ''], $atts);
+    $ids = array_filter(array_map('trim', explode(',', $a['ids'])));
+
+    ob_start(); ?>
+    <div class="my-component" data-autoplay="1">
+      <?php foreach ($ids as $id):
+        $url = wp_get_attachment_image_url((int) $id, 'large'); ?>
+        <figure class="my-component__slide"><img src="<?php echo esc_url($url); ?>" alt=""></figure>
+      <?php endforeach; ?>
+    </div>
+    <script>/* component JS — safe here, UX Builder never sees it */</script>
+    <?php
+    return ob_get_clean();
+});
+```
+Then in the page/builder: `[my_component ids="123,124,125"]`. Put the component's CSS in Theme
+Options → Custom CSS (or enqueue it). **Rule:** interactive/data-driven → PHP shortcode; reserve
+`[ux_html]` for static embeds (iframe / map / third-party widget).
+
+---
+
 ## Rendered HTML structure of theme regions (Flatsome standard)
 
 Header/menu/footer/sidebar are **theme template output** (not page shortcodes). These are the

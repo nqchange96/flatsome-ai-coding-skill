@@ -114,6 +114,40 @@ Self-hosted `@font-face` example:
 }
 ```
 
+> **`@import` reliability:** an `@import url(...fonts.googleapis.com...)` at the **top** of Theme
+> Options → Custom CSS does work (it renders into `<style id="custom-css">`), but it's the least
+> robust path. More reliable: declare the font in Theme Options → Typography, or drop a
+> `<link rel="stylesheet">` at the page top (e.g. via an `[ux_html]` at the very top, or a header
+> script). If a font "isn't applying," this is the first thing to check.
+
+---
+
+## Landing pages & build workflow tips
+
+Practical, render-verified tips for building full-width landing pages and matching a mockup fast.
+
+### Full-width landing → Blank template (and hide the breadcrumb/title)
+Use the **Blank** page template (`page-template-page-blank`) for edge-to-edge landings. Flatsome
+still injects a breadcrumb / page title above the content — hide it:
+```css
+body.page-template-page-blank #breadcrumbs,
+body.page-template-page-blank .page-title,
+body.page-template-page-blank .page-header { display:none !important; }
+```
+
+### Always regenerate + clear cache after a change
+Flatsome serves a combined CSS cache, and a minifier (e.g. **WP Rocket**) may sit on top. After
+*any* CSS/Theme-Option edit: **Theme Options → Advanced → Regenerate CSS**, then clear the page
+cache (WP Rocket / W3TC). If a change "didn't take," it's almost always stale cache.
+
+### Get Attachment IDs / category IDs in bulk via the WP REST API
+Faster than copying IDs one-by-one from the media library — map filenames → IDs in one request:
+```
+GET /wp-json/wp/v2/media?search=<filename>&_fields=id,source_url   → attachment IDs for [ux_image]
+GET /wp-json/wp/v2/categories?_fields=id,name,slug                 → category IDs for [blog_posts cat="…"]
+```
+(Public read endpoints; no auth needed for published media/terms.)
+
 ---
 
 ## Child theme (required for PHP/template changes)

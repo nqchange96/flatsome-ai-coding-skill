@@ -22,6 +22,10 @@ Rich text container.
 ```
 Attributes: `text_align`, `text_align__sm`, `font_size`, `line_height`, `letter_spacing`,
 `text_color`, `text_depth`, `max_width`.
+> ⚠️ **CSS target:** the `class` lands **on the `.text` div** → `<div class="text x">`. Use
+> `.x{…}` (✅), not `.x .text{…}` (❌, no nested `.text`). After a builder save the text is
+> wrapped in `<p><br>` — see save behaviors in
+> [html-to-uxbuilder.md](html-to-uxbuilder.md#ux-builder-save-behaviors-gotchas-when-the-page-is-openedsaved-in-the-builder).
 
 ### `[title]`
 Styled section heading with optional divider/sub-text.
@@ -104,12 +108,19 @@ Image + heading + text, often used as feature/service card.
 - `icon`: Flatsome icon name (e.g. `icon-heart`, `icon-star`, `icon-checkmark`, `icon-truck`,
   `icon-gift`, `icon-phone`, `icon-email`, `icon-shopping-cart`)
 - `pos`: `left` | `top` | `center` | `right`
+> ⚠️ The title renders as `<h5 class="uppercase">` → **ALL CAPS by default** (add
+> `text-transform:none`). The `icon` sometimes **fails to render** `.icon-box-img` — if it's
+> missing, draw the icon yourself with CSS `::before` instead of relying on the attribute.
 
 ### `[gallery]` / `[ux_gallery]`
 ```
 [ux_gallery ids="1,2,3,4" columns="4" columns__sm="2" image_size="thumbnail"
   lightbox="true" lightbox_image_size="large" depth="" caption="false"]
 ```
+> ⚠️ `[ux_gallery]` only produces an **even grid** — no per-tile captions, overlays, play
+> buttons, or bento (varied) sizes. For a captioned / play-button / bento gallery, build it
+> manually from `[row]`+`[col]`+`[ux_image]`+`[ux_text]` and add CSS (`position:absolute`
+> overlays, `::before/::after`).
 
 ---
 
@@ -128,6 +139,10 @@ Image + heading + text, often used as feature/service card.
 - `expand`: `true` makes it full-width
 - `icon`, `icon_pos` (`left`/`right`), `radius`, `depth`, `depth_hover`
 - Trigger a lightbox: `link="#mybox"` (with a matching `[lightbox id="mybox"]`).
+> ⚠️ Button text is **UPPERCASE by default** (add `text-transform:none; letter-spacing:0` to
+> match a lowercase mockup). The `class` lands **on the `<a class="button …">`** itself → target
+> `.button.myclass` (✅), not `.myclass .button` (❌); use `!important` to beat the `primary`/color
+> classes Flatsome also adds.
 
 ### `[ux_text_box]` / inline links
 Use standard HTML `<a>` inside `[ux_text]` for inline links.
@@ -169,6 +184,9 @@ listings — anything that's a custom post/category rather than a WooCommerce pr
 - `show_date`: `false` | `text` | `badge`; `excerpt`, `excerpt_length`, `readmore`, `comments`
 - `image_height` (aspect %), `image_width` (% for vertical style), `image_hover` (`zoom`/`fade`)
 - As a hero: `type="slider-full" style="overlay" slider_bullets="true" auto_slide="5000"`
+> ⚠️ Styling traps (read-more is a `<button>` not `<a>`, excerpt is `.show-on-hover`, stray
+> `.is-divider`, uppercase titles come from post content): see the `[blog_posts]` entry in
+> [html-to-uxbuilder.md](html-to-uxbuilder.md#render-gotchas--what-flatsome-actually-outputs-so-your-css-matches).
 
 ### `[ux_banner_grid]`
 Masonry-style grid of banners.
